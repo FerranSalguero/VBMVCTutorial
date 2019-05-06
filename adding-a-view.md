@@ -27,7 +27,11 @@ In this section we're going to modify the `HelloWorldController` class to use a 
 
 Let's start by using a view template with the `Index` method in the `HelloWorldController` class. Currently the `Index` method returns a string with a message that is hard-coded within the controller class. Change the `Index` method to return a `View` object, as shown in the following:
 
-[!code-vb[Main](adding-a-view/samples/sample1.vb)]
+```vbnet
+Public Function Index() As ActionResult
+            Return View()
+End Function
+```
 
 Let's now add a view template to our project that we can invoke with the `Index` method. To do this, right-click inside the `Index` method and click **Add View**.
 
@@ -43,7 +47,15 @@ The *MvcMovie\Views\HelloWorld* folder and the *MvcMovie\Views\HelloWorld\Index.
 
 Add some HTML under the `<h2>` tag. The modified *MvcMovie\Views\HelloWorld\Index.vbhtml* file is shown below.
 
-[!code-vbhtml[Main](adding-a-view/samples/sample2.vbhtml)]
+```vbnet
+@Code
+    ViewData("Title") = "Index"
+End Code
+
+<h2>Index</h2>
+
+<b>Hello</b> World!
+```
 
 Run the application and browse to the &quot;hello world&quot; controller (`http://localhost:xxxx/HelloWorld`). The `Index` method in your controller didn't do much work; it simply ran the statement `return View()`, which indicated that we wanted to use a view template file to render a response to the client. Because we did not explicitly specify the name of the view template file to use, ASP.NET MVC defaulted to using the *Index.vbhtml* view file within the *\Views\HelloWorld* folder. The image below shows the string hard-coded in the view.
 

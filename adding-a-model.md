@@ -39,23 +39,53 @@ Name the class "Movie".
 
 Add the following five properties to the `Movie` class:
 
-[!code-vb[Main](adding-a-model/samples/sample1.vb)]
+```vbnet
+Public Class Movie 
+        Public Property ID() As Integer 
+        Public Property Title() As String 
+        Public Property ReleaseDate() As Date 
+        Public Property Genre() As String 
+        Public Property Price() As Decimal 
+End Class
+```
 
 We'll use the `Movie` class to represent movies in a database. Each instance of a `Movie` object will correspond to a row within a database table, and each property of the `Movie` class will map to a column in the table.
 
 In the same file, add the following `MovieDBContext` class:
 
-[!code-vb[Main](adding-a-model/samples/sample2.vb)]
+```vbnet
+Public Class MovieDBContext
+    Inherits DbContext
+    Public Property Movies() As DbSet(Of Movie)
+End Class
+```
 
 The `MovieDBContext` class represents the Entity Framework movie database context, which handles fetching, storing, and updating `Movie` class instances in a database. The `MovieDBContext` derives from the `DbContext` base class provided by the Entity Framework. For more information about `DbContext` and `DbSet`, see [Productivity Improvements for the Entity Framework](https://blogs.msdn.com/b/efdesign/archive/2010/06/21/productivity-improvements-for-the-entity-framework.aspx?wa=wsignin1.0).
 
 In order to be able to reference `DbContext` and `DbSet`, you need to add the following `imports` statement at the top of the file:
 
-[!code-vb[Main](adding-a-model/samples/sample3.vb)]
+```vbnet
+Imports System.Data.Entity
+```
 
 The complete *Movie.vb* file is shown below.
 
-[!code-vb[Main](adding-a-model/samples/sample4.vb)]
+```vbnet
+Imports System.Data.Entity
+
+Public Class Movie
+        Public Property ID() As Integer
+        Public Property Title() As String
+        Public Property ReleaseDate() As Date
+        Public Property Genre() As String
+        Public Property Price() As Decimal
+End Class
+
+Public Class MovieDBContext
+    Inherits DbContext
+    Public Property Movies() As DbSet(Of Movie)
+End Class
+```
 
 ## Creating a Connection String and Working with SQL Server Compact
 
@@ -77,6 +107,5 @@ This small amount of code and XML is everything you need to write in order to re
 
 Next, you'll build a new `MoviesController` class that you can use to display the movie data and allow users to create new movie listings.
 
-> [!div class="step-by-step"]
 > [Previous](adding-a-view.md)
 > [Next](accessing-your-models-data-from-a-controller.md)
